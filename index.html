@@ -22,14 +22,16 @@
     <div class="container">
         <form class="col-md-6 m-auto py-5">
             <div class="input-group mb-3">
-                <input id="city-name-input" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                
+                <input class="form-control" id="city-name-input" type="text" placeholder="Enter a location for Weather ...">
+                
                 <div class="input-group-append">
                     <button id="search-temp" type="button" class="btn btn-danger">Search</button>
                 </div>
             </div>
         </form>
         <div class="weather-status text-white text-center">
-            <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+            <img id="icon-image" src="https://openweathermap.org/img/wn/04n@2x.png" alt="">
             <h1 id="city-name">Dhaka</h1>
             <h3><span id="temperature">38.06</span>&deg;C</h3>
             <h1 class="lead" id="main-struct">Cloudssss</h1>
@@ -41,21 +43,23 @@
             console.log("object,", city);
             const link = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=0697e7660a19b18973fa5e69653005ba`;
             fetch(link)
-            .then(res => res.json())
-            .then(data => {
-                console.log("temp");
-                console.log(data.name);
-                const temp = (data.main.temp-273).toFixed(2);
-                document.getElementById('city-name').innerText = data.name;
-                document.getElementById('temperature').innerText = (data.main.temp-273).toFixed(2);
-                document.getElementById('main-struct').innerText = data.weather[0].main;
-            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log("temp");
+                    const icon = data.weather[0].icon;
+                    const url = `https://openweathermap.org/img/wn/${icon}@2x.png`;
+                    document.getElementById('icon-image').setAttribute('src', url);
+                    document.getElementById('city-name').innerText = data.name;
+                    document.getElementById('temperature').innerText = (data.main.temp - 273).toFixed(2);
+                    document.getElementById('main-struct').innerText = data.weather[0].main;
+                })
         }
-        document.getElementById('search-temp').addEventListener('click', function(){
+        document.getElementById('search-temp').addEventListener('click', function () {
             const cityName = document.getElementById('city-name-input').value;
             console.log(cityName);
             showTemp(cityName);
         });
+        
     </script>
 </body>
 
