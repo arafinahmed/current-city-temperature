@@ -22,9 +22,12 @@
     <div class="container">
         <form class="col-md-6 m-auto py-5">
             <div class="input-group mb-3">
-                
-                <input class="form-control" id="city-name-input" type="text" placeholder="Enter a location for Weather ...">
-                
+
+                <form action="">
+                    <input class="form-control" id="city-name-input" type="text"
+                        placeholder="Enter a location for Weather ...">
+                </form>
+
                 <div class="input-group-append">
                     <button id="search-temp" type="button" class="btn btn-danger">Search</button>
                 </div>
@@ -59,7 +62,20 @@
             console.log(cityName);
             showTemp(cityName);
         });
-        
+        const myTextbox = document.getElementById('city-name-input');
+        myTextbox.addEventListener('keypress', checkName, false);
+        function checkName(evt) {
+            var charCode = evt.charCode;
+            if (charCode != 0) {
+                if (charCode == 13) {
+                    const cityName = document.getElementById('city-name-input').value;
+                    showTemp(cityName);
+                }
+                if (charCode < 97 || charCode > 122) {
+                    evt.preventDefault();
+                }
+            }
+        }
     </script>
 </body>
 
