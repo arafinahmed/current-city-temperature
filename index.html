@@ -44,7 +44,7 @@
     <script>
         const showTemp = (city) => {
             console.log("object,", city);
-            const link = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=0697e7660a19b18973fa5e69653005ba`;
+            const link = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=0697e7660a19b18973fa5e69653005ba`;
             fetch(link)
                 .then(res => res.json())
                 .then(data => {
